@@ -143,7 +143,23 @@ public class Shopping {
                     break;
                 case 6:
                     System.out.println("Number of products manufactured");
+                    String date1 = sc.next();
+                    String date2 = sc.next();
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/shoppingdb","root","");
+                        String sql = "SELECT COUNT(`name`) AS count FROM `products` WHERE `mfgdate` BETWEEN '"+date1+"' AND '"+date2+"'";
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            int counts = rs.getInt("count");
+                            System.out.println("Number of product Manufactured ="+counts+'\n');
 
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 7:
                     System.out.println("Name of the product starting letter");
