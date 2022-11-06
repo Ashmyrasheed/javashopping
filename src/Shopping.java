@@ -49,9 +49,29 @@ public class Shopping {
                     break;
                 case 2:
                     System.out.println("View");
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/shoppingdb","root","");
+                        String sql = "SELECT `name`, `description`, `mfgdate`, `brandname`, `price` FROM `products`";
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            name = rs.getString("name");
+                            String Desc = rs.getString("description");
+                            String Manu_date = rs.getString("mfgdate");
+                            String BrandName = rs.getString("brandname");
+                            price = rs.getInt("Price");
+                            System.out.println("Purchase name ="+name);
+                            System.out.println("Description ="+Desc);
+                            System.out.println("Date ="+Manu_date);
+                            System.out.println("Brand out ="+BrandName);
+                            System.out.println("Price ="+price+'\n');
+                        }
 
-
-
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 3:
                     System.out.println("Search");
